@@ -111,7 +111,7 @@ def display_profile_data(data: dict):
   if os.path.exists("./ascii-templates") and os.path.isdir("./ascii-templates"):
     # Try to load the appropriate ASCII template based on the first letter of the name
     try:
-      with open(f'./ascii-templates/{username[0].lower()}', 'rb') as ascii_template_file:
+      with open(f'./ascii-templates/{name[0].lower()}', 'rb') as ascii_template_file:
         ascii_template = ascii_template_file.read().decode()
 
       # Format the ASCII template with the user's profile data
@@ -120,7 +120,7 @@ def display_profile_data(data: dict):
       tc.cprint(ascii_template, random.choice(['light_blue','light_magenta','light_red','light_yellow','light_green','cyan']))
     except FileNotFoundError:
       # Handle the case where the template file is not found
-      tc.cprint(f"Template file for '{username[0].lower()}' not found!", 'light_red')
+      tc.cprint(f"Template file for '{name[0].lower()}' not found!", 'light_red')
   else:
     # Prompt the user to download the ASCII templates if the directory is missing
     tc.cprint("Please download the ASCII templates from my GitHub repo: https://github.com/zinedine0014/git-fetch", 'light_red')
