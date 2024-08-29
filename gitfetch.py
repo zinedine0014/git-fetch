@@ -107,12 +107,14 @@ def display_profile_data(data: dict):
   location = data['location'] if data['location'] else 'not found'
   bio = data['bio'] if['bio'] else 'not found'
 
-  # Check if the ASCII templates directory exists
-  if os.path.exists("./ascii-templates") and os.path.isdir("./ascii-templates"):
+  # Check if the ASCII templates directory exists || and if its not empty
+  if os.path.exists("./ascii-templates") and os.path.isdir("./ascii-templates") and len(os.listdir('./ascii-templates')) > 0:
     # Try to load the appropriate ASCII template based on the first letter of the name
     try:
-      with open(f'./ascii-templates/{name[0].lower()}', 'rb') as ascii_template_file:
-        ascii_template = ascii_template_file.read().decode()
+      # will open a random ascii template and then read it
+      with open(f'./ascii-templates/{random.choice(os.listdir('./ascii-templates'))}', 'rb') as ascii_template_file:
+        ascii_template = str(ascii_template_file.read().decode())
+      ascii_template_file.close()
 
       # Format the ASCII template with the user's profile data
       ascii_template = ascii_template.format(name, username, repos_count, followers, following, location, bio)
@@ -120,13 +122,12 @@ def display_profile_data(data: dict):
       tc.cprint(ascii_template, random.choice(['light_blue','light_magenta','light_red','light_yellow','light_green','cyan']))
     except FileNotFoundError:
       # Handle the case where the template file is not found
-      tc.cprint(f"Template file for '{name[0].lower()}' not found!", 'light_red')
+      tc.cprint(f"please make sure that u have  all the ascii templates!", 'light_red')
   else:
     # Prompt the user to download the ASCII templates if the directory is missing
     tc.cprint("Please download the ASCII templates from my GitHub repo: https://github.com/zinedine0014/git-fetch", 'light_red')
 
 
-# ====================================== Main function ======================================
 if __name__ == '__main__':
   # Check if the script was run with exactly one argument (GitHub username)
   if len(sys.argv) == 2:
