@@ -6,7 +6,7 @@
 
 - Fetches and parses GitHub profile data
 - Displays profile information with colored terminal output
-- Supports optional ASCII art templates for displaying profile data
+- displays some cute ascii anime girls on the terminal
 
 ## Usage
 `python3 gitfetch.py <username>`
